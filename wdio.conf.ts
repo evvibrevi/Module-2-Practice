@@ -1,4 +1,6 @@
 exports.config = {
+
+    
     //
     // ====================
     // Runner Configuration
@@ -45,37 +47,35 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 3,
+    maxInstances: 2,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [
-        
-         {
-            maxInstances: 1,
+        {
             browserName: 'chrome',
-        /*    'goog:chromeOptions': {
-            args: ['--headless', '--disable-gpu', '--window-size=1920,1080'],
-        },*/
-        },
-        {
-           // Firefox Configuration
-            maxInstances: 1,
+            'goog:chromeOptions': {
+              args: ['--headless=new',
+                '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+              ], // Headless mode for Chrome
+            },
+          },
+          {
             browserName: 'firefox',
-        /*    'moz:firefoxOptions': {
-            args: ['-headless', '--width=1920', '--height=1080'],
-        },*/
-        },
-        
-        {
-            // Safari Configuration (no headless mode available for Safari)
-            maxInstances: 1,
+            'moz:firefoxOptions': {
+              args: ['-headless',
+                '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+              ], // Headless mode for Firefox
+            },
+          },
+          {
             browserName: 'safari',
-         },  
-    ],
-
+            // Safari does NOT support headless mode via WebDriverIO directly.
+            // Use Safari Technology Preview for headless (see notes below).
+          },
+        ],
     //
     // ===================
     // Test Configurations
@@ -118,6 +118,10 @@ exports.config = {
     //
     // Default request retries count
     connectionRetryCount: 3,
+
+    scriptTimeout: 15000,
+    
+    commandTimeout: 10000,
     //
     // Test runner services
     // Services take over a specific job you don't want to take care of. They enhance
@@ -153,7 +157,7 @@ exports.config = {
     mochaOpts: {
         ui: 'bdd',
         timeout: 60000,
-        retries: 2,
+        retries: 1,
     },
 
     //

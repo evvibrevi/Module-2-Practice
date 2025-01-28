@@ -1,7 +1,13 @@
+require('dotenv').config();
+
 describe('Trello User Log In', () => {
     it('should successfully sign in a user', async () => {
         await browser.setWindowSize(1210, 900);
+        browser.setTimeout({ 'pageLoad': 10000 });
         await browser.url('https://trello.com');
+
+        const login = process.env.LOGIN;
+        const password = process.env.PASSWORD;
 
         const selector = 'a[data-uuid="MJFtCCgVhXrVl7v9HA7EH_login"]';
         const loginButton = await $(selector);
@@ -9,7 +15,7 @@ describe('Trello User Log In', () => {
         await loginButton.click();
 
         const emailInput = await $('[aria-describedby="username-uid2-helper"]');
-        await emailInput.setValue('evv.va@icloud.com');
+        await emailInput.setValue(login);
 
         const loginSubmit = await $('#login-submit');
         await loginSubmit.click();
@@ -17,7 +23,7 @@ describe('Trello User Log In', () => {
         const passwordInput = await $('input[data-testid="password"][autofocus]');
         await passwordInput.waitForClickable({timeout: 5000});
         await passwordInput.click();
-        await passwordInput.setValue('Kaalbe1995');
+        await passwordInput.setValue(password);
 
         const loginSubmitButton = await $('#login-submit');
         await loginSubmitButton.click();
@@ -117,11 +123,11 @@ describe ('User creates a card in a list', () =>{
         await browser.refresh();
 
         const nameCardButton= await $('button[data-testid="list-add-card-button"]'); 
-        await nameCardButton.waitForClickable();
+        await nameCardButton.waitForClickable(1000);
         await nameCardButton.click();
         
         
-        const nameCardText = await $('.qJv26NWQGVKzI9'); // no click
+        const nameCardText = await $('.qJv26NWQGVKzI9'); 
         await nameCardText.click();
         await nameCardText.setValue('Module 2: Practical task');
         
@@ -136,7 +142,7 @@ describe ('User creates a card in a list', () =>{
 
 describe ('User creates a Card filtering', () => {
     it('should only choose the card matching the selected criteria', async() =>{
-
+        
         const filterPopover = await $('button[data-testid="filter-popover-button"]');
         await filterPopover.waitForClickable(5000);
         await filterPopover.click();
@@ -152,6 +158,7 @@ describe ('User creates a Card filtering', () => {
 describe ('User edits the workspace settings', () =>{
     it ('should update workspace details', async () =>{
 
+        await browser.refresh();
         const overflowIcon = await $('button[aria-label="Меню"]');
         await overflowIcon.waitForClickable();
         await overflowIcon.click();
