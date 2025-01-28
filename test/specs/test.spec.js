@@ -3,10 +3,6 @@ require('dotenv').config();
 describe('Trello User Log In', () => {
     it('should successfully sign in a user', async () => {
         await browser.setWindowSize(1210, 900);
-        /*await browser.emulate(
-            'userAgent',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
-        );*/
         browser.setTimeout({ 'pageLoad': 10000 });
         await browser.url('https://trello.com');
 
@@ -146,7 +142,7 @@ describe ('User creates a card in a list', () =>{
 
 describe ('User creates a Card filtering', () => {
     it('should only choose the card matching the selected criteria', async() =>{
-
+        
         const filterPopover = await $('button[data-testid="filter-popover-button"]');
         await filterPopover.waitForClickable(5000);
         await filterPopover.click();
@@ -162,6 +158,7 @@ describe ('User creates a Card filtering', () => {
 describe ('User edits the workspace settings', () =>{
     it ('should update workspace details', async () =>{
 
+        await browser.refresh();
         const overflowIcon = await $('button[aria-label="Меню"]');
         await overflowIcon.waitForClickable();
         await overflowIcon.click();

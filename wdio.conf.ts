@@ -53,17 +53,29 @@ exports.config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [{
-        maxInstances: 1,   
-        browserName: 'safari',
-    }
-    , {
-        maxInstances: 1,
-        browserName: 'chrome'
-    }, {
-        maxInstances: 2,
-        browserName: 'firefox'
-    }],
+    capabilities: [
+        {
+            browserName: 'chrome',
+            'goog:chromeOptions': {
+              args: ['--headless=new',
+                '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+              ], // Headless mode for Chrome
+            },
+          },
+          {
+            browserName: 'firefox',
+            'moz:firefoxOptions': {
+              args: ['-headless',
+                '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+              ], // Headless mode for Firefox
+            },
+          },
+          {
+            browserName: 'safari',
+            // Safari does NOT support headless mode via WebDriverIO directly.
+            // Use Safari Technology Preview for headless (see notes below).
+          },
+        ],
     //
     // ===================
     // Test Configurations
