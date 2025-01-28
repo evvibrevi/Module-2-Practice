@@ -123,11 +123,11 @@ describe ('User creates a card in a list', () =>{
         await browser.refresh();
 
         const nameCardButton= await $('button[data-testid="list-add-card-button"]'); 
-        await nameCardButton.waitForClickable();
+        await nameCardButton.waitForClickable(1000);
         await nameCardButton.click();
         
         
-        const nameCardText = await $('.qJv26NWQGVKzI9'); // no click
+        const nameCardText = await $('.qJv26NWQGVKzI9'); 
         await nameCardText.click();
         await nameCardText.setValue('Module 2: Practical task');
         
