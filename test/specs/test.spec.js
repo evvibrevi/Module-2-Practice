@@ -1,7 +1,17 @@
+require('dotenv').config();
+
 describe('Trello User Log In', () => {
     it('should successfully sign in a user', async () => {
         await browser.setWindowSize(1210, 900);
+        /*await browser.emulate(
+            'userAgent',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+        );*/
+        browser.setTimeout({ 'pageLoad': 10000 });
         await browser.url('https://trello.com');
+
+        const login = process.env.LOGIN;
+        const password = process.env.PASSWORD;
 
         const selector = 'a[data-uuid="MJFtCCgVhXrVl7v9HA7EH_login"]';
         const loginButton = await $(selector);
@@ -9,7 +19,7 @@ describe('Trello User Log In', () => {
         await loginButton.click();
 
         const emailInput = await $('[aria-describedby="username-uid2-helper"]');
-        await emailInput.setValue('evv.va@icloud.com');
+        await emailInput.setValue(login);
 
         const loginSubmit = await $('#login-submit');
         await loginSubmit.click();
@@ -17,7 +27,7 @@ describe('Trello User Log In', () => {
         const passwordInput = await $('input[data-testid="password"][autofocus]');
         await passwordInput.waitForClickable({timeout: 5000});
         await passwordInput.click();
-        await passwordInput.setValue('Kaalbe1995');
+        await passwordInput.setValue(password);
 
         const loginSubmitButton = await $('#login-submit');
         await loginSubmitButton.click();

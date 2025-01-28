@@ -1,4 +1,6 @@
 exports.config = {
+
+    
     //
     // ====================
     // Runner Configuration
@@ -45,37 +47,23 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 3,
+    maxInstances: 2,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [
-        
-         {
-            maxInstances: 1,
-            browserName: 'chrome',
-        /*    'goog:chromeOptions': {
-            args: ['--headless', '--disable-gpu', '--window-size=1920,1080'],
-        },*/
-        },
-        {
-           // Firefox Configuration
-            maxInstances: 1,
-            browserName: 'firefox',
-        /*    'moz:firefoxOptions': {
-            args: ['-headless', '--width=1920', '--height=1080'],
-        },*/
-        },
-        
-        {
-            // Safari Configuration (no headless mode available for Safari)
-            maxInstances: 1,
-            browserName: 'safari',
-         },  
-    ],
-
+    capabilities: [{
+        maxInstances: 1,   
+        browserName: 'safari',
+    }
+    , {
+        maxInstances: 1,
+        browserName: 'chrome'
+    }, {
+        maxInstances: 2,
+        browserName: 'firefox'
+    }],
     //
     // ===================
     // Test Configurations
@@ -118,6 +106,10 @@ exports.config = {
     //
     // Default request retries count
     connectionRetryCount: 3,
+
+    scriptTimeout: 15000,
+    
+    commandTimeout: 10000,
     //
     // Test runner services
     // Services take over a specific job you don't want to take care of. They enhance
@@ -153,7 +145,7 @@ exports.config = {
     mochaOpts: {
         ui: 'bdd',
         timeout: 60000,
-        retries: 2,
+        retries: 1,
     },
 
     //
